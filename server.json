@@ -1,0 +1,19 @@
+{
+  "todo" :[ 
+    {
+    "id": 1,
+    "tasks": [
+      {
+        "id": 1,
+        "text": "Arrumar o quarto",
+        "status": false
+      },
+      {
+        "id": 2,
+        "text": "Lavar a Louça",
+        "status": false
+      }
+    ]
+  }
+]
+}
