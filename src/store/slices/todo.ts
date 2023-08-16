@@ -1,4 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { api } from "../../lib/axios";
 
 interface Todo {
   id: number
@@ -17,14 +18,19 @@ const initialState: TodoState = {
   todo: null
 }
 
+export const loadTodo = createAsyncThunk(
+  'Todo/load',
+  async () => {
+   const response = await api.get('/todo/1')
+   return response.data
+  }
+)
+// o asyncThunk nada mais uma ação (como as que são criadas nos reducers) sendo que async
+
 export const todoSlice = createSlice({
   name: 'todoList',
   initialState, 
   reducers: {
-    start: (state, action :PayloadAction<Todo>) => {
-      state.todo = action.payload
-    },
-
     add: (state, action) => {
       const newTodo = {
         id: Number,
@@ -40,8 +46,15 @@ export const todoSlice = createSlice({
       // Essa maneira também dispara a função no redux dev tools, porém nada acontece. Nao entendi o motivo
     },
   },
+  extraReducers(builder) {
+    builder.addCase(loadTodo.fulfilled, (state, action) => {
+      state.todo = action.payload
+    })
+  },
 })
+  // criando uma ação de carregar a lista de Todo quando o asyncThunk conseguir enviar a ação de fullfilled
+  // o extra reducers server para esse slice receber ações de outras slices ou de async thunks (como é o exemplo)
 
 
 export const todoList = todoSlice.reducer
-export const { add, remove, start } = todoSlice.actions
+export const { add, remove } = todoSlice.actions

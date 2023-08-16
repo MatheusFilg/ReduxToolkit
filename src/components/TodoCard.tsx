@@ -1,7 +1,7 @@
 import { CheckIcon, Trash2 } from "lucide-react"
-import { useDispatch,  } from "react-redux"
 import { remove, } from "../store/slices/todo";
 import * as Checkbox from '@radix-ui/react-checkbox';
+import { useAppDispatch } from "../store";
 
 interface TodoCardProps {
   text: string
@@ -9,7 +9,7 @@ interface TodoCardProps {
 }
 
 export default function TodoCard({ text, id }: TodoCardProps) {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   function handleDeleteTask() {
     dispatch(remove({

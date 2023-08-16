@@ -1,11 +1,11 @@
 import { Plus } from "lucide-react";
-import { useDispatch } from "react-redux";
 import { add } from "../store/slices/todo";
 import { FormEvent, useState } from "react";
+import { useAppDispatch } from "../store";
 
 export default function AddTask() {
   const [newTask, setNewTask] = useState('')
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   function handleNewTask(e: FormEvent) {
     e.preventDefault()

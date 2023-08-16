@@ -2,18 +2,15 @@ import Header from '../components/Header'
 import { TodoList } from '../components/TodoList'
 import Counter from '../components/Counter'
 import { useEffect } from 'react'
-import { api } from '../lib/axios'
-import { useDispatch } from 'react-redux'
-import { start } from '../store/slices/todo'
+import { loadTodo } from '../store/slices/todo'
+import { useAppDispatch } from '../store'
 
 export function Todo() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    api.get('/todo/1').then(response => {
-      dispatch(start(response.data))
-    })
-  }, [])
+    dispatch(loadTodo())
+  })
 
   return (
     <div  className="flex flex-col items-center w-full">
