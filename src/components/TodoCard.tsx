@@ -1,20 +1,21 @@
 import { CheckIcon, Trash2 } from "lucide-react"
-import { remove, } from "../store/slices/todo";
 import * as Checkbox from '@radix-ui/react-checkbox';
-import { useAppDispatch } from "../store";
+import { useStore } from "../zustand-store";
 
 interface TodoCardProps {
   text: string
-  id: number
+  id: string
+  checked: boolean
 }
 
-export default function TodoCard({ text, id }: TodoCardProps) {
-  const dispatch = useAppDispatch()
-
+export default function TodoCard({ text, id, checked }: TodoCardProps) {
+  const { removeTask, toggleCompleteTask } = useStore()
   function handleDeleteTask() {
-    dispatch(remove({
-      id
-    }))
+    removeTask(id)
+  }
+
+  function handleCheckTask() {
+    toggleCompleteTask(id)
   }
 
   return (
@@ -22,10 +23,12 @@ export default function TodoCard({ text, id }: TodoCardProps) {
       <div className="flex flex-row gap-4 align-middle justify-center w-screen" >
         <div className="flex items-center focus:outline-none">
           <Checkbox.Root
-          className="flex h-[25px] w-[25px] items-center justify-center rounded-2xl bg-gray-800 hover:bg-gray-600 shadow focus:shadow-small focus:shadow-yellow-600 border-2 border-solid border-gray-800 focus:border-none focus:outline-none"
+            className="flex h-[25px] w-[25px] items-center justify-center rounded-2xl bg-gray-800 hover:bg-gray-600 shadow focus:shadow-small focus:shadow-yellow-600 border-2 border-solid border-gray-800 focus:border-none focus:outline-none"
+            checked={checked}
+            onCheckedChange = {() => handleCheckTask()}
           >
-          <Checkbox.Indicator>
-            <CheckIcon className='text-yellow-600' size={20}  />
+            <Checkbox.Indicator>
+              <CheckIcon className='text-yellow-600' size={20}  />
             </Checkbox.Indicator>
           </Checkbox.Root>
     </div>
