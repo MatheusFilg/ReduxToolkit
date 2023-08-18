@@ -10,6 +10,7 @@ interface TodoCardProps {
 
 export default function TodoCard({ text, id, checked }: TodoCardProps) {
   const { removeTask, toggleCompleteTask } = useStore()
+  
   function handleDeleteTask() {
     removeTask(id)
   }

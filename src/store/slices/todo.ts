@@ -31,14 +31,14 @@ export const todoSlice = createSlice({
   name: 'todoList',
   initialState, 
   reducers: {
-    add: (state, action) => {
-      const newTodo = {
-        id: Number,
-        text: action.payload.newTask,
-        status: Boolean
-      }
-      state.todo?.tasks.push(newTodo)
-    },
+    // add: (state, action) => {
+    //   const newTodo = {
+    //     id: Number,
+    //     text: action.payload.newTask,
+    //     status: Boolean
+    //   }
+    //   state.todo?.tasks.push(newTodo)
+    // },
     remove: (state,action) => {
       state.todo?.tasks.splice(action.payload, 1)
 
